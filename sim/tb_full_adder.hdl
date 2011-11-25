@@ -29,7 +29,7 @@ begin
     T_B <= '0';
     T_Carry_In <= '0';
     wait for 10 ns;
-    assert ((T_Sum /= '0') and (T_Carry_Out /= '0'))
+    assert ((T_Sum = '0') and (T_Carry_Out = '0'))
       report "Failed Case 1" severity error;
     if (T_Sum /= '0') or (T_Carry_Out /= '0') then
       Err_Cnt := Err_Cnt + 1;
@@ -41,7 +41,7 @@ begin
     T_B <= '0';
     T_Carry_In <= '0';
     wait for 10 ns;
-    assert ((T_Sum /= '1') and (T_Carry_Out /= '0'))
+    assert ((T_Sum = '1') and (T_Carry_Out = '0'))
       report "Failed Case 2" severity error;
     if (T_Sum /= '1') or (T_Carry_Out /= '0') then
       Err_Cnt := Err_Cnt + 1;
@@ -52,7 +52,7 @@ begin
     T_B <= '1';
     T_Carry_In <= '0';
     wait for 10 ns;
-    assert (not ((T_Sum = '0') and (T_Carry_Out = '1')))
+    assert ((T_Sum = '0') and (T_Carry_Out = '1'))
       report "Failed Case 3" severity error;
     if (T_Sum /= '0') or (T_Carry_Out /= '1') then
       Err_Cnt := Err_Cnt + 1;
@@ -63,7 +63,7 @@ begin
     T_B <= '0';
     T_Carry_In <= '1';
     wait for 10 ns;
-    assert (not ((T_Sum = '1') and (T_Carry_Out = '0')))
+    assert ((T_Sum = '1') and (T_Carry_Out = '0'))
       report "Failed Case 4" severity error;
     if (T_Sum /= '0') or (T_Carry_Out /= '1') then
       Err_Cnt := Err_Cnt + 1;
@@ -74,7 +74,7 @@ begin
     T_B <= '0';
     T_Carry_In <= '1';
     wait for 10 ns;
-    assert (not ((T_Sum = '0') and (T_Carry_Out = '1')))
+    assert ((T_Sum = '0') and (T_Carry_Out = '1'))
       report "Failed Case 5" severity error;
     if (T_Sum /= '0') or (T_Carry_Out /= '1') then
       Err_Cnt := Err_Cnt + 1;
@@ -85,7 +85,7 @@ begin
     T_B <= '1';
     T_Carry_In <= '1';
     wait for 10 ns;
-    assert (not ((T_Sum = '1') and (T_Carry_Out = '1')))
+    assert ((T_Sum = '1') and (T_Carry_Out = '1'))
       report "Failed Case 6" severity error;
     if (T_Sum /= '0') or (T_Carry_Out /= '1') then
       Err_Cnt := Err_Cnt + 1;
@@ -105,7 +105,7 @@ begin
 
 end architecture TB;
 
-configuration CFG_TB of TB_Half_Adder
+configuration CFG_TB of TB_Full_Adder
 is
   for TB
   end for;
