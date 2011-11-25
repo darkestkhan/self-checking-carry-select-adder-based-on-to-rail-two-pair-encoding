@@ -1,0 +1,6 @@
+Some diddling in VHDL, currently only fourbit adder
+How to use:
+  make TESTBENCH=name
+  eg. make TESTBENCH=tb_four_bit_adder
+Dependencies:
+  make, gtkwave, ghdl
