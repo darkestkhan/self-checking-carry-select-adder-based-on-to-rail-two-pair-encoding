@@ -71,8 +71,18 @@ begin
     T_B <= "1000";
     wait for 10 ns;
     assert ((T_Sum = "0000") and (T_Carry_Out = '1'))
-      report "Failed Case 1" severity error;
+      report "Failed Case 5" severity error;
     if (T_Sum /= "0000") or (T_Carry_Out /= '1') then
+      Err_Cnt := Err_Cnt + 1;
+    end if;
+
+    -- Test Case 6: A -> 1111, B -> 1111
+    T_A <= "1111";
+    T_B <= "1111";
+    wait for 10 ns;
+    assert ((T_Sum = "1110") and (T_Carry_Out = '1'))
+      report "Failed Case 6" severity error;
+    if (T_Sum /= "1110") or (T_Carry_Out /= '1') then
       Err_Cnt := Err_Cnt + 1;
     end if;
 
