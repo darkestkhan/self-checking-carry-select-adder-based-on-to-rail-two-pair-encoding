@@ -68,7 +68,7 @@ begin
 
 end architecture TB;
 
-configuration CFG_TB of TB_Four_Bit_Adder
+configuration CFG_TB of TB_Four_Bit_And
 is
   for TB
   end for;
