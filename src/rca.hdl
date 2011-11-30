@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.Std_Logic_1164.all;
 
 entity RCA is
-  generic (Width: Positive := 4);
+  generic (Width: Positive := 4; Carry_In: Std_Logic := '0');
   port (A, B: in Std_Logic_Vector (Width - 1 downto 0);
         Sum: out Std_Logic_Vector (Width - 1 downto 0);
         Carry_Out: out Std_Logic);
@@ -10,11 +10,6 @@ end RCA;
 
 architecture Structure of RCA
 is
-
-  component Half_Adder is
-    port (A, B: in Std_Logic;
-          Sum, Carry_Out: out Std_Logic);
-  end component Half_Adder;
 
   component Full_Adder is
     port  (A, B, Carry_In: in Std_Logic;
@@ -29,7 +24,7 @@ begin
     for I in 0 to Width generate
       Lowest_Bit:
         if I = 0 generate
-          Lowest_Cell: Half_Adder port map (A => A (0), B => B (0), Sum => Sum (0), Carry_Out => Cin (1));
+          Lowest_Cell: Full_Adder port map (A => A (0), B => B (0), Carry_In => Carry_In, Sum => Sum (0), Carry_Out => Cin (1));
         end generate Lowest_Bit;
 
       Middle_Bit:
