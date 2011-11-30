@@ -3,6 +3,8 @@ use IEEE.Std_Logic_1164.all;
 
 entity RCA is
   generic (Width: Positive := 4; Carry_In: Std_Logic := '0');
+  -- width specifies the size of number to be added
+  -- carry_in specifies wether we increase the sum by 1 or not
   port (A, B: in Std_Logic_Vector (Width - 1 downto 0);
         Sum: out Std_Logic_Vector (Width - 1 downto 0);
         Carry_Out: out Std_Logic);
