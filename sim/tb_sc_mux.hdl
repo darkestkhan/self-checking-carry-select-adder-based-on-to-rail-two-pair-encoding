@@ -66,9 +66,8 @@ begin
 
 end architecture TB;
 
-configuration CFG_TB of TB_Four_Bit_And
+configuration CFG_TB of TB_SC_MUX
 is
   for TB
   end for;
 end CFG_TB;
-
