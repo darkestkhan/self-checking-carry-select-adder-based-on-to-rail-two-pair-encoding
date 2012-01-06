@@ -24,7 +24,7 @@ is
 
 begin
 
-  TMUX: SC_MUX
+  T_SC_MUX: SC_MUX
     generic map (Width => Size)
     port map (A => T_A, B => T_B, Control => T_Control, Output => T_Output, Not_Output => T_Not_Output);
 
