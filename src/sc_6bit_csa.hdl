@@ -48,11 +48,11 @@ begin
               Sum => Sum (1 downto 0), Cin => '0', Cout => cins (1),
               Encoded => Initial_Encoding (1 downto 0), MUX_Error => MUX_Errors (0));
   Bits_2_to_3: SC_Two_Bit_CSA
-    port map (A => A (3 downto 2), B => B (3 downto 2), Fault => Fault (7 downto 0),
+    port map (A => A (3 downto 2), B => B (3 downto 2), Fault => Fault (15 downto 8),
               Sum => Sum (3 downto 2), Cin => cins (1), Cout => cins (2),
               Encoded => Initial_Encoding (3 downto 2), MUX_Error => MUX_Errors (1));
   Bits_4_to_5: SC_Two_Bit_CSA
-    port map (A => A (5 downto 4), B => B (5 downto 4), Fault => Fault (7 downto 0),
+    port map (A => A (5 downto 4), B => B (5 downto 4), Fault => Fault (23 downto 16),
               Sum => Sum (5 downto 4), Cin => cins (2), Cout => Cout,
               Encoded => Initial_Encoding (5 downto 4), MUX_Error => MUX_Errors (2));
 
