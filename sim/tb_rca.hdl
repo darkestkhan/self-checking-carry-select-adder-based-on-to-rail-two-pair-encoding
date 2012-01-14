@@ -15,30 +15,36 @@ is
   is
     generic (Width: Positive := 4; Carry_In: Std_Logic := '0');
     port (A, B: in Std_Logic_Vector (Width - 1 downto 0);
+          Fault: in Std_Logic_Vector ((2 * Width) - 1 downto 0);
           Sum: out Std_Logic_Vector (Width - 1 downto 0);
           Carry_Out: out Std_Logic);
   end component RCA;
 
   signal T_A, T_B, T_Sum: Std_Logic_Vector (Width - 1 downto 0);
   signal T_Carry_Out: Std_Logic;
+  signal T_Fault: Std_Logic_Vector ((2 * Width) - 1 downto 0);
   -- used for simulation w/o carry in
   signal T_A1, T_B1, T_Sum1: Std_Logic_Vector (Width - 1 downto 0);
   signal T_Carry_Out1: Std_Logic;
+  signal T_Fault1: Std_Logic_Vector ((2 * Width) - 1 downto 0);
   -- used for simulation with carry in
 
 begin
 
   FBA: RCA -- testing for 4 bit case w/o carry in
     generic map (Width => 4, Carry_In => '0')
-    port map (A => T_A, B => T_B, Sum => T_Sum, Carry_Out => T_Carry_Out);
+    port map (A => T_A, B => T_B, Fault => T_Fault, Sum => T_Sum, Carry_Out => T_Carry_Out);
 
   FBA1: RCA -- testing for 4 bit case with carry in
     generic map (Width => 4, Carry_In => '1')
-    port map (A => T_A1, B => T_B1, Sum => T_Sum1, Carry_Out => T_Carry_Out1);
+    port map (A => T_A1, B => T_B1, Fault => T_Fault1, Sum => T_Sum1, Carry_Out => T_Carry_Out1);
+
 
   process
     variable Err_Cnt: Integer := 0;
   begin
+    T_Fault <= "00000001";
+
     -- Test Case 1.1: A -> 0000, B -> 0000
     T_A <= "0000";
     T_B <= "0000";
@@ -114,6 +120,8 @@ begin
   process
     variable Err_Cnt: Integer := 0;
   begin
+    T_Fault <= "00000001";
+
     -- Test Case 2.1: A -> 0000, B -> 0000
     T_A1 <= "0000";
     T_B1 <= "0000";
