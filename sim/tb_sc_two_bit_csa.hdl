@@ -11,6 +11,7 @@ is
 
   component SC_Two_Bit_CSA is
     port (A, B: in Std_Logic_Vector (1 downto 0);
+          Fault: in Std_Logic_Vector (7 downto 0);
           Sum: out Std_Logic_Vector (1 downto 0);
           Cin: in Std_Logic;
           Cout: out Std_Logic;
@@ -20,15 +21,18 @@ is
 
   signal T_A, T_B, T_Sum, T_Encoded: Std_Logic_Vector (1 downto 0);
   signal T_Cin, T_Cout, T_Mux_Error: Std_Logic;
+  signal T_Fault: Std_Logic_Vector (7 downto 0);
 
 begin
 
   TBA: SC_Two_Bit_CSA
-    port map (A => T_A, B => T_B, Sum => T_Sum, Cin => T_Cin, Cout => T_Cout, Mux_Error => T_Mux_Error, Encoded => T_Encoded);
+    port map (A => T_A, B => T_B, Fault => T_Fault, Sum => T_Sum,
+              Cin => T_Cin, Cout => T_Cout, Mux_Error => T_Mux_Error, Encoded => T_Encoded);
 
   process
     variable Err_Cnt: Integer := 0;
   begin
+    T_Fault <= "00000001";
     -- First we will be testing for Control_In 0, after that the same test for Control_In 1
     T_Cin <= '0';
 
@@ -113,5 +117,3 @@ is
   for TB
   end for;
 end CFG_TB;
-
-

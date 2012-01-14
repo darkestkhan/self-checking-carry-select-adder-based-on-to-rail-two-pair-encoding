@@ -4,6 +4,7 @@ use IEEE.Std_Logic_1164.all;
 entity SC_Two_Bit_CSA is
 
   port (A, B: in Std_Logic_Vector (1 downto 0);
+        Fault: in Std_Logic_Vector (7 downto 0);
         Sum: out Std_Logic_Vector (1 downto 0);
         Cin: in Std_Logic;
         Cout: out Std_Logic;
@@ -17,6 +18,7 @@ architecture Structure of SC_Two_Bit_CSA is
   component RCA is
     generic (Width: Positive := 2; Carry_In: Std_Logic := '0');
     port (A, B: in Std_Logic_Vector (Width - 1 downto 0);
+          Fault: in Std_Logic_Vector ((Width * 2) - 1 downto 0);
           Sum: out Std_Logic_Vector (Width - 1 downto 0);
           Carry_Out: out Std_Logic);
   end component RCA;
@@ -51,10 +53,10 @@ begin
 
   WOC: RCA
     generic map (Width => 2, Carry_In => '0')
-    port map (A => A, B => B, Sum => WOC_Sum, Carry_Out => WOC_Co (0));
+    port map (A => A, B => B, Fault => Fault (3 downto 0), Sum => WOC_Sum, Carry_Out => WOC_Co (0));
   WC: RCA
     generic map (Width => 2, Carry_In => '1')
-    port map (A => A, B => B, Sum => WC_Sum, Carry_Out => WC_Co (0));
+    port map (A => A, B => B, Sum => WC_Sum, Fault => Fault (7 downto 4), Carry_Out => WC_Co (0));
   Results: SC_MUX
     generic map (Width => 2)
     port map (A => WOC_Sum, B => WC_Sum, Control => Cin, Output => Temp_Sum, Not_Output => Inverse_Sum);
